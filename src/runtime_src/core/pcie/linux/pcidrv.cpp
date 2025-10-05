@@ -15,6 +15,8 @@ scan_devices(std::vector<std::shared_ptr<dev>>& ready_list,
   const std::string drv_root = "/sys/bus/pci/drivers/";
   const std::string drvpath = drv_root + name();
 
+  printf("Scanning for devices in driver path %s\n", drvpath.c_str());
+
   if (!sfs::exists(drvpath))
     return;
 

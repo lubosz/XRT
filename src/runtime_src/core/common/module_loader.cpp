@@ -218,15 +218,20 @@ driver_plugin_paths()
   std::vector<std::string> ret;
   sfs::directory_iterator p{shim_path().parent_path()};
 
+  printf("🍁 Iterating %s for driver plugins.\n", shim_path().parent_path().string().c_str());
+
   // All driver plug-ins are in the same directory as shim .so and with below prefix and suffix.
   const std::string pre = "libxrt_driver_";
   const std::string suf = std::string(".so.") + XRT_VERSION_MAJOR;
   while (p != sfs::directory_iterator{}) {
     const auto name = p->path().filename().string();
+    printf("🌵 Potential driver plugin %s\n", name.c_str());
     if ((name.size() > (pre.size() + suf.size())) &&
       !name.compare(0, pre.size(), pre) &&
-      !name.compare(name.size() - suf.size(), suf.size(), suf))
-      ret.push_back(p->path().string());
+      !name.compare(name.size() - suf.size(), suf.size(), suf)) {
+        printf("🥕 Adding driver plugin %s\n", name.c_str());
+        ret.push_back(p->path().string());
+    }
     p++;
   }
 

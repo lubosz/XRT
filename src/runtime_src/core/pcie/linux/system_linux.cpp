@@ -155,6 +155,7 @@ system_linux()
   }
 
   for (const auto& driver : driver_list::get()) {
+    printf("Found driver %s through loader!\n", driver->name().c_str());
     if (driver->is_user())
       driver->scan_devices(user_ready_list, user_nonready_list);
     else
